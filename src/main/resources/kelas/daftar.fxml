@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kelas.controller.DaftarController">
+   <children>
+      <Label layoutX="20.0" layoutY="20.0" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Daftar Produk Toko" />
+      
+      <TextField fx:id="txtCari" layoutX="20.0" layoutY="60.0" prefWidth="200.0" promptText="Cari nama produk..." />
+      <Button layoutX="230.0" layoutY="60.0" mnemonicParsing="false" onAction="#cariData" text="Cari" />
+      
+      <TableView fx:id="tblProduk" layoutX="20.0" layoutY="100.0" prefHeight="230.0" prefWidth="560.0">
+        <columns>
+          <TableColumn fx:id="colKode" prefWidth="100.0" text="Kode" />
+          <TableColumn fx:id="colNama" prefWidth="200.0" text="Nama Produk" />
+          <TableColumn fx:id="colKategori" prefWidth="130.0" text="Kategori" />
+          <TableColumn fx:id="colHarga" prefWidth="130.0" text="Harga" />
+        </columns>
+      </TableView>
+      
+      <Button layoutX="20.0" layoutY="350.0" mnemonicParsing="false" onAction="#kembaliKeForm" text="Kembali ke Form" />
+      <Button layoutX="490.0" layoutY="350.0" mnemonicParsing="false" onAction="#bukaDetail" text="Lihat Detail" />
+   </children>
+</AnchorPane>
