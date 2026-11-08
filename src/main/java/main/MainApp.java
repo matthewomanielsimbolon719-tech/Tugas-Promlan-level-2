@@ -9,16 +9,17 @@ import javafx.stage.Stage;
 public class MainApp extends Application {
 
     @Override
-    public void start(Stage stage) throws Exception {
-        // Memuat form.fxml yang baru di dalam folder kelas
+    public void start(Stage primaryStage) throws Exception {
+        // INI KUNCINYA: Daftarkan stage utama ke Navigator
+        Navigator.setPrimaryStage(primaryStage);
+        
+        // Memuat form pertama kali
         Parent root = FXMLLoader.load(getClass().getResource("/kelas/form.fxml"));
 
         Scene scene = new Scene(root);
-        stage.setTitle("Aplikasi Pencatatan Produk Toko");
-        stage.setScene(scene);
-        stage.setMinWidth(500);
-        stage.setMinHeight(430);
-        stage.show();
+        primaryStage.setTitle("Aplikasi Pencatatan Produk Toko");
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
     public static void main(String[] args) {

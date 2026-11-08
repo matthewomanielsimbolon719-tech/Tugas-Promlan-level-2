@@ -5,13 +5,27 @@ import javafx.collections.ObservableList;
 import kelas.model.Produk;
 
 public class DataProduk {
-    private static final ObservableList<Produk> listProduk = FXCollections.observableArrayList();
+    private static DataProduk instance;
+    private ObservableList<Produk> daftarProduk;
 
-    public static ObservableList<Produk> getProdukList() {
-        return listProduk;
+    private DataProduk() {
+        daftarProduk = FXCollections.observableArrayList();
     }
 
-    public static void tambahProduk(Produk p) {
-        listProduk.add(p);
+    public static synchronized DataProduk getInstance() {
+        if (instance == null) {
+            instance = new DataProduk();
+        }
+        return instance;
+    }
+
+    // Method statis agar cocok dengan pemanggilan di DaftarController: DataProduk.getProdukList()
+    public static ObservableList<Produk> getProdukList() {
+        return getInstance().daftarProduk;
+    }
+
+    // Method instance (opsional untuk jaga-jaga)
+    public ObservableList<Produk> getDaftarProduk() {
+        return daftarProduk;
     }
 }

@@ -1,48 +1,62 @@
 package kelas.controller;
-import main.Navigator;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import kelas.data.DataProduk;
 import kelas.model.Produk;
+import main.Navigator;
 
-public class FormController {
-    @FXML private TextField txtKode, txtNama, txtHarga;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class FormController implements Initializable {
+
+    @FXML private TextField txtKode;
+    @FXML private TextField txtNama;
     @FXML private ComboBox<String> cbKategori;
+    @FXML private TextField txtHarga;
 
-    @FXML
-    public void initialize() {
-        cbKategori.getItems().addAll("Makanan", "Minuman");
-    }
-
-    @FXML
-    void simpanProduk(ActionEvent event) {
-        try {
-            String nama = txtNama.getText();
-            double harga = Double.parseDouble(txtHarga.getText());
-
-            // Validasi nama kosong atau harga <= 0
-            if (nama.trim().isEmpty() || harga <= 0) {
-                showAlert("Error", "Nama produk tidak boleh kosong dan harga harus > 0!");
-                return;
-            }
-
-            Produk p = new Produk(txtKode.getText(), nama, cbKategori.getValue(), harga);
-            DataProduk.tambahProduk(p);
-            
-            // Pindah ke halaman daftar menggunakan Navigator bawaan praktikum
-            Navigator.loadFXML("/kelas/daftar.fxml");
-
-        } catch (NumberFormatException e) {
-            showAlert("Error", "Harga harus berupa angka valid!");
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        if (cbKategori != null) {
+            cbKategori.getItems().clear();
+            cbKategori.getItems().addAll("Food", "Drink");
         }
     }
 
-    private void showAlert(String title, String content) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setContentText(content);
-        alert.showAndWait();
+    @FXML
+    public void simpanProduk() {
+        System.out.println("SUKSES: Tombol simpan diklik!");
+        
+        try {
+            String kode = txtKode.getText();
+            String nama = txtNama.getText();
+            String kategori = cbKategori.getValue();
+            
+            if (kode == null || kode.trim().isEmpty() || 
+                nama == null || nama.trim().isEmpty() || 
+                kategori == null) {
+                System.err.println("Validasi: Semua field harus diisi!");
+                return;
+            }
+
+            double harga = Double.parseDouble(txtHarga.getText());
+
+            // Masukkan data ke ObservableList
+            Produk produkBaru = new Produk(kode, nama, kategori, harga);
+            DataProduk.getProdukList().add(produkBaru);
+            
+            System.out.println("SUKSES: Data tersimpan, jumlah total: " + DataProduk.getProdukList().size());
+
+            // Berpindah ke halaman daftar produk
+            Navigator.loadFXML("/kelas/daftar.fxml");
+
+        } catch (NumberFormatException e) {
+            System.err.println("Error: Harga harus berupa angka!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

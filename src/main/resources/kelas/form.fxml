@@ -22,6 +22,7 @@
       <Label layoutX="40.0" layoutY="215.0" text="Harga:" />
       <TextField fx:id="txtHarga" layoutX="140.0" layoutY="210.0" prefWidth="200.0" />
       
+      <!-- Pastikan onAction="#simpanProduk" ada di sini -->
       <Button layoutX="140.0" layoutY="270.0" mnemonicParsing="false" onAction="#simpanProduk" text="Simpan &amp; Lihat Daftar" />
    </children>
 </AnchorPane>
